@@ -1,5 +1,5 @@
 import {NextFunction, Request, Response} from "express";
-import {loginUser, refreshSession, registerUser, setupCookies} from "../services/auth";
+import {loginUser, logOutUser, refreshSession, registerUser, setupCookies} from "../services/auth";
 
 export const registerController = async(req:Request, res:Response , next:NextFunction)=>{
     await registerUser(req.body)
@@ -29,4 +29,16 @@ export const refreshController = async(req, res, next)=>{
         message: 'Token was refreshed',
         accessToken
     })
+}
+
+export const logoutController = async(req, res, next)=>{
+    const sessionId= req.cookies.sid
+    if(sessionId) {
+        await logOutUser(sessionId)
+    }
+
+    res.clearCookie('sid');
+    res.clearCookie('refreshToken');
+
+    res.status(204).send()
 }
