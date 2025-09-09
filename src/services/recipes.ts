@@ -1,8 +1,8 @@
 import {RecipeCollection} from "../db/models/recipeSchema";
 
 export const parseQuery = (query)=>{
-    if(typeof  query.name !== 'string') return ''
-    return query
+    if(typeof query.name !== 'string') return ''
+    return query.name
 }
 
 export const getRecipes = async(userId, name)=>{
