@@ -36,7 +36,7 @@ export const loginUser = async({email, password})=>{
     const user = await UserCollection.findOne({email})
     if(!user) throw createHttpError(404, 'User was not found')
 
-    const isEqual = bcrypt.compare(password, user.password)
+    const isEqual = await bcrypt.compare(password, user.password)
     if(!isEqual) throw createHttpError(401, 'Email or password is invalid')
 
    return await createSession(user._id)

@@ -10,15 +10,15 @@ export const startServer = ()=>{
 
     const app = express()
 
-    app.use(cors());
+    app.use(cors({allowedHeaders: ['Content-Type', 'Authorization']}));
 
     app.use(express.json())
 
     app.use(cookieParser())
 
-    app.use(authRouter)
+    app.use('/auth', authRouter)
 
-    app.use(router)
+    app.use('/recipes', router)
 
     app.use(notFoundHandler)
 
