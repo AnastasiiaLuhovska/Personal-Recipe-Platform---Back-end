@@ -52,3 +52,14 @@ export const setupCookies = (refreshToken, sid, refreshValidUntil, res)=>{
         expires: refreshValidUntil
     })
 }
+
+export const refreshSession = async(refreshToken, _id) =>{
+    const session = await SessionCollection.findOne({ refreshToken, _id})
+
+    if(!session) throw createHttpError(401, 'Session was not found')
+
+    if(session.refreshValidUntil < new Date()) throw createHttpError(401, 'Refresh token has expired')
+
+    return await createSession(session.userId)
+
+}
