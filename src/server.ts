@@ -4,6 +4,7 @@ import errorHandler from "./middlewares/errorHandler";
 import {notFoundHandler} from "./middlewares/notFoundHandler";
 import router from "./routes/recipes";
 import authRouter from "./routes/auth";
+import cookieParser from 'cookie-parser';
 
 export const startServer = ()=>{
 
@@ -13,10 +14,7 @@ export const startServer = ()=>{
 
     app.use(express.json())
 
-
-    app.get('/', (req, res) => {
-        res.send('Backend is running 🚀');
-    });
+    app.use(cookieParser())
 
     app.use(authRouter)
 
