@@ -5,14 +5,18 @@ import {notFoundHandler} from "./middlewares/notFoundHandler";
 import router from "./routes/recipes";
 import authRouter from "./routes/auth";
 import cookieParser from 'cookie-parser';
+import {getEnvVar} from "./utils/getEnvVar";
 
 export const startServer = ()=>{
 
     const app = express()
 
-    app.use(cors({allowedHeaders: ['Content-Type', 'Authorization']}));
-
     app.use(express.json())
+
+    app.use(cors({
+        origin: getEnvVar('FRONTEND_URL') ,
+        credentials: true
+    }));
 
     app.use(cookieParser())
 

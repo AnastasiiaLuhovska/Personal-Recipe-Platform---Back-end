@@ -44,17 +44,22 @@ export const loginUser = async({email, password})=>{
 
 export const setupCookies = (refreshToken, sid, refreshValidUntil, res)=>{
     res.cookie('refreshToken', refreshToken,{
-        httpOnly:true,
-        expires: refreshValidUntil
-})
+        httpOnly: true,
+        expires: refreshValidUntil,
+        sameSite: 'none',
+        secure: true,
+    })
     res.cookie('sid', sid, {
-        httpOnly:true,
-        expires: refreshValidUntil
+        httpOnly: true,
+        expires: refreshValidUntil,
+        sameSite: 'none',
+        secure: true,
     })
 }
 
 export const refreshSession = async(refreshToken, _id) =>{
-    const session = await SessionCollection.findOne({ refreshToken, _id})
+
+    const session = await SessionCollection.findOne({refreshToken})
 
     if(!session) throw createHttpError(401, 'Session was not found')
 

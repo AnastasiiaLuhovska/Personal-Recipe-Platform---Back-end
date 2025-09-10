@@ -21,8 +21,11 @@ export const loginController = async(req:Request, res:Response , next:NextFuncti
 }
 
 export const refreshController = async(req, res, next)=>{
+    if (!req.cookies.refreshToken) {
+        return res.status(401).json({ status: 401, message: 'No refresh token provided' })
+    }
+    
     const {refreshToken, _id, accessToken, refreshValidUntil} = await refreshSession(req.cookies.refreshToken, req.cookies.sid)
-
     setupCookies(refreshToken, _id, refreshValidUntil, res)
     res.json({
         status:200,
