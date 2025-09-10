@@ -15,6 +15,7 @@ export const startServer = ()=>{
 
     app.use(cors({
         origin: getEnvVar('FRONTEND_URL') ,
+        // origin:  ' http://localhost:5173',
         credentials: true
     }));
 
