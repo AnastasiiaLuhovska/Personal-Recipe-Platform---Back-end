@@ -42,20 +42,18 @@ export const loginUser = async({email, password})=>{
    return await createSession(user._id)
 }
 
-export const setupCookies = (refreshToken, sid, refreshValidUntil, res, req)=>{
-    const userAgent = req.headers['user-agent'];
-    const isIOS = /iPad|iPhone|iPod/.test(userAgent);
+export const setupCookies = (refreshToken, sid, refreshValidUntil, res)=>{
 
     res.cookie('refreshToken', refreshToken,{
         httpOnly: true,
         expires: refreshValidUntil,
-        sameSite: isIOS ? 'lax' : 'none',
+        sameSite: 'none',
         secure: true,
     })
     res.cookie('sid', sid, {
         httpOnly: true,
         expires: refreshValidUntil,
-        sameSite: isIOS ? 'lax' : 'none',
+        sameSite: 'none',
         secure: true,
     })
 }

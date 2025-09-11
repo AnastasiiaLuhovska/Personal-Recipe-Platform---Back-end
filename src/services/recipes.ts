@@ -19,3 +19,8 @@ export const postRecipe = async(recipe, user) =>{
    return await RecipeCollection.create({...recipe, userId: user._id})
 
 }
+
+export const findRecipeById = async(id)=>{
+    const recipe =  await RecipeCollection.findById(id)
+    return recipe
+}
