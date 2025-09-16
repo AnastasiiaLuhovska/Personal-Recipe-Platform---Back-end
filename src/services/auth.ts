@@ -47,14 +47,14 @@ export const setupCookies = (refreshToken, sid, refreshValidUntil, res)=>{
     res.cookie('refreshToken', refreshToken,{
         httpOnly: true,
         expires: refreshValidUntil,
-        sameSite: 'none',
-        secure: true,
+        sameSite: 'lax',
+        secure: false,
     })
     res.cookie('sid', sid, {
         httpOnly: true,
         expires: refreshValidUntil,
-        sameSite: 'none',
-        secure: true,
+        sameSite: 'lax',
+        secure: false,
     })
 }
 
